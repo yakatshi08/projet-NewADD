@@ -1,0 +1,9 @@
+{
+  "nav": {
+    "dashboard": "Dashboard",
+    "dataSources": "Data Sources",
+    "reports": "Reports",
+    "aiInsights": "AI Insights",
+    "collaboration": "Collaboration"
+  }
+}

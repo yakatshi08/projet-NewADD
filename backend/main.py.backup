@@ -1,0 +1,64 @@
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from contextlib import asynccontextmanager
+import uvicorn
+
+from backend.core.config import settings
+from backend.api.api_v1.api import api_router
+from backend.db.init_db import init_db
+from backend.db.session import engine
+from backend.db.base import Base
+
+# Lifecycle
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Startup
+    print("🚀 Démarrage de l'application...")
+    # Créer les tables
+    Base.metadata.create_all(bind=engine)
+    # Initialiser les données de base
+    init_db()
+    yield
+    # Shutdown
+    print("🛑 Arrêt de l'application...")
+
+# Créer l'application
+app = FastAPI(
+    title=settings.PROJECT_NAME,
+    version=settings.VERSION,
+    openapi_url=f"{settings.API_V1_STR}/openapi.json",
+    lifespan=lifespan
+)
+
+# CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=settings.BACKEND_CORS_ORIGINS,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Routes
+app.include_router(api_router, prefix=settings.API_V1_STR)
+
+# Route de santé
+@app.get("/")
+async def root():
+    return {
+        "message": "BI Analytics API",
+        "version": settings.VERSION,
+        "docs": f"{settings.API_V1_STR}/docs"
+    }
+
+@app.get("/health")
+async def health_check():
+    return {"status": "healthy"}
+
+if __name__ == "__main__":
+    uvicorn.run(
+        "main:app",
+        host="0.0.0.0",
+        port=8000,
+        reload=True
+    )
