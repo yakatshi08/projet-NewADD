@@ -42,12 +42,14 @@
 .logo-icon {
   width: 20px;
   height: 20px;
+  color: white;
 }
 
 .logo-text {
   font-size: 18px;
   font-weight: 600;
   white-space: nowrap;
+  color: white;
 }
 
 .nav-menu {
@@ -69,7 +71,7 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 6px 12px;
+  padding: 8px 16px;
   border-radius: 8px;
   border: none;
   background: transparent;
@@ -77,13 +79,30 @@
   cursor: pointer;
   font-size: 14px;
   font-weight: 500;
-  transition: background 0.2s;
+  transition: all 0.2s ease;
   white-space: nowrap;
   flex-shrink: 0;
+  text-decoration: none;
 }
 
 .nav-button:hover {
   background: rgba(255, 255, 255, 0.1);
+}
+
+/* État actif pour la navigation */
+.nav-button-active {
+  background: rgba(255, 255, 255, 0.2);
+  position: relative;
+}
+
+.nav-button-active::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 16px;
+  right: 16px;
+  height: 2px;
+  background: white;
 }
 
 .header-right {
@@ -100,6 +119,12 @@
   padding: 6px 12px;
   border-radius: 8px;
   cursor: pointer;
+  transition: background 0.2s;
+  color: white;
+}
+
+.profile-section:hover {
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .profile-avatar {
@@ -111,7 +136,54 @@
   align-items: center;
   justify-content: center;
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 600;
+  color: white;
+}
+
+/* Language selector */
+.language-selector {
+  position: relative;
+}
+
+.language-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  z-index: 100;
+  min-width: 120px;
+}
+
+.language-dropdown button {
+  display: block;
+  width: 100%;
+  padding: 10px 16px;
+  border: none;
+  background: none;
+  color: #1E3A8A;
+  font-size: 14px;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.language-dropdown button:hover {
+  background: #F3F4F6;
+}
+
+/* Lien styles pour React Router */
+a.nav-button {
+  text-decoration: none;
+  color: white;
+}
+
+/* Fix pour les icônes */
+.nav-button svg,
+.header-right svg {
+  color: white;
 }
 
 /* Responsive */
