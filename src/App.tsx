@@ -3,7 +3,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MainLayout from './layouts/MainLayout';
 import Dashboard from './pages/Dashboard';
 import DataSources from './pages/DataSources';
-import ETL from './pages/ETL'; // ➕ Import ajouté
+import ETL from './pages/ETL';
+import Reports from './pages/Reports'; // Import ajouté ici
 import './styles/index.css';
 
 function App() {
@@ -27,7 +28,7 @@ function App() {
         } />
         <Route path="/reports" element={
           <MainLayout>
-            <div className="p-8">Rapports</div>
+            <Reports /> {/* Route modifiée ici */}
           </MainLayout>
         } />
         <Route path="/ai-insights" element={
@@ -40,7 +41,7 @@ function App() {
             <div className="p-8">Collaboration</div>
           </MainLayout>
         } />
-        <Route path="/etl" element={  // ➕ Route ajoutée
+        <Route path="/etl" element={
           <MainLayout>
             <ETL />
           </MainLayout>
